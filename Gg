@@ -1,0 +1,117 @@
+#include<stdio.h>
+#include <stdlib.h>
+struct node{
+int data;
+struct node * next;
+};
+void traverse();
+void insert_beg();
+void Del_beg();
+void insert_end();
+void search();
+struct node * head=NULL;
+void traverse()
+{
+    struct node * ptr;
+    ptr=head;
+    while(ptr!= NULL)
+    {
+        printf("%d--",ptr->data);
+        ptr=ptr->next;
+    }
+}
+void insert_beg()
+{
+    struct node * newNode;
+    int val;
+    printf("\nEnter the number");
+    scanf("%d",&val);
+    newNode=(struct node *)malloc(sizeof(struct node));
+    newNode->next=head;
+    head=newNode;
+    newNode->data=val;
+}
+void insert_end()
+{
+struct node *ptr,*newNode;
+int val;
+printf("\nEnter value to be inserted at the end");
+scanf("%d",&val);
+newNode=(struct node*)malloc(sizeof(struct node));
+newNode->data=val;
+newNode->next=NULL;
+ptr=head;
+while(ptr->next!=NULL)
+{
+    ptr=ptr->next;
+}
+ptr->next=newNode;
+}
+void Del_beg()
+{
+struct node * ptr;
+ptr=head;
+if(head==NULL)
+{
+printf("List is empty");
+}
+head=head->next;
+printf("%d deleted",ptr->data);
+free(ptr);
+}
+void search()
+{
+    struct node *ptr;
+
+    if (head == NULL) {
+        printf("List is empty. Nothing to search.\n");
+        return;
+    }
+    int val;
+    printf("Enter the value to search for: ");
+    scanf("%d", &val);
+int pos=1;
+int found=0;
+    ptr = head;
+    while (ptr != NULL) {
+        if (ptr->data == val) {
+            printf("\nValue %d found at position %d!\n", val, pos);
+            found = 1;
+            break;
+        }
+        ptr = ptr->next; 
+        pos++;           
+    }
+
+    if (found == 0) {
+        printf("\nValue %d not found in the list.\n", val);
+    }
+}
+int main() {
+    int choice;
+    while(1) {
+        printf("\nPress \n1-Traversal \n2-Insertion at beginning\n3-Insertion at end\n4-Deletion from the beginning\n5-Searching\n6-Exit\nChoice: ");
+        
+        scanf("%d", &choice);
+        
+       
+        while (getchar() != '\n'); 
+        
+        switch(choice)
+        {
+            case 1: traverse();
+            break;
+            case 2:insert_beg();
+            break;
+            case 3:insert_end();
+            break;
+            case 4:Del_beg();
+            break;
+            case 5:search();
+            break;
+            case 6: printf("Program exiting");
+            exit(0);
+            default: printf("\nIncorrect choice Try Again");
+        }
+    }
+}
